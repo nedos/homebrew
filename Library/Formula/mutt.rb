@@ -10,7 +10,8 @@ class Mutt <Formula
   def options
     [
       ['--sidebar-patch', "Apply sidebar (folder list) patch"],
-      ['--trash-patch', "Apply trash folder patch"]
+      ['--trash-patch', "Apply trash folder patch"],
+      ['--ssl-patch', "Apply upstream fix for openssl 1.0.0 compatibility"]
     ]
   end
 
@@ -25,6 +26,11 @@ class Mutt <Formula
 
     if ARGV.include? '--trash-patch'
       p <<  'http://trac.macports.org/export/69644/trunk/dports/mail/mutt-devel/files/patch-1.5.20.bk.trash_folder-purge_message.1'
+    end
+
+    # Mutt openssl 1.0.0 compatibility fix
+    if ARGV.include? '--ssl-patch'
+      p <<  'http://trac.macports.org/export/70157/trunk/dports/mail/mutt-devel/files/patch-1.5.20.mutt_ssl.diff'
     end
 
     return p
