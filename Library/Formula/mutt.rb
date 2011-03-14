@@ -17,15 +17,14 @@ class Mutt <Formula
 
   def patches
     # Fix unsubscribe malformed folder
-    # See: http://dev.mutt.org/trac/ticket/3389
-    p = [ 'http://dev.mutt.org/hg/mutt/raw-rev/25e46aad362b' ]
+    p = Array.new
 
     if ARGV.include? '--sidebar-patch'
-      p << 'http://lunar-linux.org/~tchan/mutt/patch-1.5.20.sidebar.20090619.txt'
+      p << 'https://github.com/nedos/mutt-sidebar-patch/raw/master/mutt-sidebar.patch'
     end
 
     if ARGV.include? '--trash-patch'
-      p <<  'http://trac.macports.org/export/69644/trunk/dports/mail/mutt-devel/files/patch-1.5.20.bk.trash_folder-purge_message.1'
+      p << 'http://trac.macports.org/export/69644/trunk/dports/mail/mutt-devel/files/patch-1.5.20.bk.trash_folder-purge_message.1'
     end
 
     return p
