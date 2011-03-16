@@ -24,7 +24,7 @@ class Mutt <Formula
     end
 
     if ARGV.include? '--trash-patch'
-      p << 'http://trac.macports.org/export/69644/trunk/dports/mail/mutt-devel/files/patch-1.5.20.bk.trash_folder-purge_message.1'
+      p << 'http://patch-tracker.debian.org/patch/series/dl/mutt/1.5.21-2/features/trash-folder'
     end
 
     return p
