@@ -5,7 +5,7 @@ class Mutt <Formula
   homepage 'http://www.mutt.org/'
   md5 'a29db8f1d51e2f10c070bf88e8a553fd'
 
-  depends_on 'tokyo-cabinet'
+  depends_on 'gdbm'
 
   def options
     [
@@ -42,7 +42,7 @@ class Mutt <Formula
             "--enable-smtp",
             "--enable-pop",
             "--enable-hcache",
-            "--with-tokyocabinet",
+            "--with-gdbm",
             # This is just a trick to keep 'make install' from trying to chgrp
             # the mutt_dotlock file (which we can't do if we're running as an
             # unpriviledged user)
