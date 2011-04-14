@@ -24,27 +24,12 @@ class Vtk < Formula
              "-DVTK_USE_COCOA:BOOL=ON",
              "-DBUILD_TESTING:BOOL=OFF",
              "-DBUILD_EXAMPLES:BOOL=OFF",
-             "-DBUILD_SHARED_LIBS:BOOL=ON",
-             "-DCMAKE_INSTALL_RPATH:STRING='#{lib}/vtk-5.8'",
-             "-DCMAKE_INSTALL_NAME_DIR:STRING='#{lib}/vtk-5.8'"]
+             "-DBUILD_SHARED_LIBS:BOOL=ON" ]
 
     if ARGV.include? '--python'
       python_prefix = `python-config --prefix`.strip
-      # Install to global python site-packages
-      args << "-DVTK_PYTHON_SETUP_ARGS:STRING='--prefix=#{python_prefix}'"
-      # Python is actually a library. The libpythonX.Y.dylib points to this lib, too.
-      if File.exist? "#{python_prefix}/Python"
-        # Python was compiled with --framework:
-        args << "-DPYTHON_LIBRARY='#{python_prefix}/Python'"
-      else
-        python_version = `python-config --libs`.match('-lpython(\d+\.\d+)').captures.at(0)
-        python_lib = "#{python_prefix}/lib/libpython#{python_version}"
-        if File.exists? "#{python_lib}.a"
-          args << "-DPYTHON_LIBRARY='#{python_lib}.a'"
-        else
-          args << "-DPYTHON_LIBRARY='#{python_lib}.dylib'"
-        end
-      end
+      args << "-DVTK_PYTHON_SETUP_ARGS:STRING='--prefix=#{python_prefix}'" # Install to global python site-packages
+      args << "-DPYTHON_LIBRARY='#{python_prefix}/Python'" # Python is actually a library. The libpythonX.Y.dylib points to this lib, too.
       args << "-DVTK_WRAP_PYTHON:BOOL=ON"
     end
 
@@ -57,6 +42,9 @@ class Vtk < Formula
     if ARGV.include? '--tcl'
       args << "-DVTK_WRAP_TCL:BOOL=ON"
     end
+
+    args << "-DCMAKE_INSTALL_RPATH:STRING='#{prefix}/lib/vtk-5.6'"
+    args << "-DCMAKE_INSTALL_NAME_DIR:STRING='#{prefix}/lib/vtk-5.6'"
 
     # Hack suggested at http://www.vtk.org/pipermail/vtk-developers/2006-February/003983.html
     # to get the right RPATH in the python libraries (the .so files in the vtk egg).
