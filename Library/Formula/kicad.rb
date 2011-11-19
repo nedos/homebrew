@@ -10,9 +10,9 @@ class Kicad < Formula
   depends_on 'cmake'
   depends_on 'wxpython'
 
-  def patches
-      DATA
-  end
+  # def patches
+  #     DATA
+  # end
 
   def install
     args = []

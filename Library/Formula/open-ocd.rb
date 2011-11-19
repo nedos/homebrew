@@ -14,6 +14,7 @@ class OpenOcd < Formula
   def options
     [
       ['--enable-dummy',              'Enable building the dummy JTAG port driver'                             ],
+      ['--enable-buspirate',              'Enable BusPirate driver'                          ],
       ['--enable-ft2232_libftdi',     'Enable building support for FT2232 based devices with libftdi driver'   ],
       ['--enable-ft2232_ftd2xx',      'Enable building support for FT2232 based devices with FTD2XX driver'    ],
       ['--enable-gw16012',            'Enable building support for Gateworks GW16012 JTAG Programmer'          ],
@@ -52,6 +53,7 @@ class OpenOcd < Formula
   def install
     args = ['--enable-maintainer-mode', "--prefix=#{prefix}"]
     args << '--enable-dummy'              if ARGV.include? '--enable-dummy'
+    args << '--enable-buspirate'          if ARGV.include? '--enable-buspirate'
     args << '--enable-ft2232_libftdi'     if ARGV.include? '--enable-ft2232_libftdi'
     args << '--enable-ft2232_ftd2xx'      if ARGV.include? '--enable-ft2232_ftd2xx'
     args << '--enable-gw16012'            if ARGV.include? '--enable-gw16012'
