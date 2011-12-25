@@ -20,8 +20,7 @@ class Binutils < Formula
             "--disable-werror",
             "--enable-interwork",
             "--enable-multilib",
-            "--enable-targets=x86_64-elf",
-            "--enable-targets=arm-none-eabi"]
+            "--enable-targets=all"]
     args << "--program-prefix=g" unless ARGV.include? '--default-names'
 
     system "./configure", *args
