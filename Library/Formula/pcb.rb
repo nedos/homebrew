@@ -5,14 +5,13 @@ class Pcb < Formula
   homepage 'http://pcb.gpleda.org/'
   sha1 '53ca27797d4db65a068b56f157e3ea6c5c29051f'
 
+  depends_on 'pkg-config' => :build
+  depends_on 'intltool' => :build
   depends_on 'gtk+'
   depends_on 'gd'
   depends_on 'gettext'
   depends_on 'd-bus'
-  depends_on 'intltool'
   depends_on 'gtkglext'
-
-  def patches; DATA; end
 
   def install
     # Help configure find libraries
@@ -27,7 +26,12 @@ class Pcb < Formula
             "--with-gettext=#{gettext.prefix}",
             "--enable-dbus"]
 
+    # ./configure doesn't detect gl.h and glu.h correctly
     system "./configure", *args
+    text = File.read('config.h')
+    text.gsub!(/#define HAVE_OPENGL_GL_H 1/,"//#define HAVE_OPENGL_GL_H 1")
+    text.gsub!(/#define HAVE_OPENGL_GLU_H 1/,"//#define HAVE_OPENGL_GLU_H 1")
+    File.open('config.h', 'w') { |file| file.write(text) }
     system "make"
     system "make install"
   end
@@ -36,18 +40,3 @@ class Pcb < Formula
     "This software runs under X11."
   end
 end
-
-__END__
-diff --git a/src/hid/common/hidgl.c b/src/hid/common/hidgl.c
-index 21edb5d..7101bef 100644
---- a/src/hid/common/hidgl.c
-+++ b/src/hid/common/hidgl.c
-@@ -66,6 +66,8 @@
- #include <dmalloc.h>
- #endif
- 
-+// compatibility typedef
-+typedef GLvoid (*_GLUfuncptr)();
- 
- triangle_buffer buffer;
- float global_depth = 0;
