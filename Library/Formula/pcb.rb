@@ -1,7 +1,7 @@
 require 'formula'
 
 class Pcb < Formula
-  url 'wget http://downloads.sourceforge.net/project/pcb/pcb/pcb-20110918/pcb-20110918.tar.gz'
+  url 'http://downloads.sourceforge.net/project/pcb/pcb/pcb-20110918/pcb-20110918.tar.gz'
   homepage 'http://pcb.gpleda.org/'
   sha1 '53ca27797d4db65a068b56f157e3ea6c5c29051f'
 
